@@ -4,11 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Web App</title>
+    <style>
+        /* Устанавливаем белый цвет текста и черный фон для всей страницы */
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ваш username:</h1>
-    <p id="username"></p>
+    <div>
+        <h1>Ваш username:</h1>
+        <p id="username">Загрузка...</p>
+    </div>
 
-    <script src="app.js"></script>
+    <script>
+        // Инициализация Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Получаем данные пользователя
+        const user = tg.initDataUnsafe.user;
+
+        // Выводим username на экран
+        if (user && user.username) {
+            document.getElementById('username').innerText = user.username;
+        } else {
+            document.getElementById('username').innerText = 'Username не найден';
+        }
+
+        // Показываем основную кнопку, если нужно
+        tg.MainButton.show();
+    </script>
 </body>
 </html>
